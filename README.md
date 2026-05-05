@@ -57,33 +57,21 @@ cmake --build build
 
 ## 3. Input / Đầu vào
 
-TODO_STUDENT: Mô tả rõ đầu vào của chương trình sau khi em hoàn thiện bài lab.
+Đầu vào được truyền dưới dạng luồng dữ liệu (stdin).
 
-Gợi ý nên nêu:
-- plaintext đang được nhập như thế nào
-- key đang được nhập như thế nào
-- chương trình nhận 1 block hay nhiều block
-- định dạng dữ liệu là chuỗi bit, chuỗi ký tự hay file
+Plaintext/Ciphertext & Key: Nhập dạng chuỗi nhị phân.
+
+Mode: Nhận giá trị số nguyên (1: DES Encrypt, 2: DES Decrypt, 3: 3DES Encrypt, 4: 3DES Decrypt).
+
+Multi-block: Chương trình tự cắt thành các khối 64 bit để xử lý.
 
 ## 4. Output / Đầu ra
 
-TODO_STUDENT: Mô tả rõ đầu ra của chương trình.
-
-Gợi ý nên nêu:
-- ciphertext hiển thị ra sao
-- có in round keys hay không
-- có hỗ trợ giải mã hay không
-- với TripleDES thì đầu ra gồm những gì
+Đầu ra là một chuỗi nhị phân liên tục (Ciphertext hoặc Plaintext) in trực tiếp ra stdout. Không in thừa round keys để đảm bảo CI hoạt động đúng.
 
 ## 5. Padding đang dùng
 
-TODO_STUDENT: Giải thích cơ chế padding em dùng.
-
-Gợi ý:
-- nếu plaintext dài hơn 64 bit thì chia block như thế nào
-- nếu thiếu bit thì pad bằng `0` ra sao
-- hạn chế của zero padding là gì
-- vì sao cách này chỉ phù hợp cho bài học nhập môn, không phải thiết kế an toàn hoàn chỉnh trong thực tế
+Cơ chế Zero Padding. Nếu plaintext dài không chia hết cho 64, tự động nối bit 0 vào cuối. Hạn chế: lúc giải mã không phân biệt được số 0 của data gốc hay của padding.
 
 ## 6. Tests bắt buộc
 

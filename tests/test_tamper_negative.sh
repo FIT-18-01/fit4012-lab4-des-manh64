@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
-# TODO_STUDENT: Hoàn thiện negative test cho tamper / flip 1 byte / bit flip.
-# Gợi ý: sửa 1 byte hoặc một số bit của ciphertext rồi quan sát kết quả giải mã / kiểm thử.
 set -euo pipefail
+g++ -std=c++17 des.cpp -o des_test
+PT="1100110011001100110011001100110011001100110011001100110011001100"
+KEY="1111111111111111000000000000000011111111111111110000000000000000"
+CIPHER=$(echo -e "1\n$PT\n$KEY" | ./des_test)
 
-echo "TODO_STUDENT: implement tamper negative test"
-exit 0
+# Tamper: Đảo lật bit đầu tiên của cipher
+FIRST_BIT=${CIPHER:0:1}
+if [ "$FIRST_BIT" == "1" ]; then TAMPERED="0${CIPHER:1}"; else TAMPERED="1${CIPHER:1}"; fi
+DECRYPTED=$(echo -e "2\n$TAMPERED\n$KEY" | ./des_test)
+
+if [[ "$DECRYPTED" == "$PT" ]]; then exit 1; fi
+echo "[PASS] Tampering successfully destroyed the output."
+rm -f des_test

@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# TODO_STUDENT: Hoàn thiện test cho trường hợp DES mẫu từ code gốc.
-# Gợi ý: compile chương trình, chạy, rồi đối chiếu ciphertext mẫu mong đợi.
 set -euo pipefail
-
-echo "TODO_STUDENT: implement sample DES test"
-exit 0
+g++ -std=c++17 des.cpp -o des_test
+# Nhập Mode 1 (Encrypt), Plaintext và Key
+OUTPUT=$(echo -e "1\n0001001000110100010101100111100010011010101111001101111011110001\n0001001100110100010101110111100110011011101111001101111111110001" | ./des_test)
+EXPECTED="0111111010111111010001001001001100100011111110101111101011111000"
+if [[ "$OUTPUT" != "$EXPECTED" ]]; then exit 1; fi
+echo "[PASS] Sample DES test pass."
+rm -f des_test
