@@ -1,0 +1,1 @@
+[PASS] Tampering successfully destroyed the output.
